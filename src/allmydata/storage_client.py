@@ -191,6 +191,9 @@ class NativeStorageServer:
         self.key_s = key_s
         self.announcement = ann
 
+        if "storage-URL" in ann:
+            print "storage-URL", ann["storage-URL"]
+
         assert "anonymous-storage-FURL" in ann, ann
         furl = str(ann["anonymous-storage-FURL"])
         m = re.match(r'pb://(\w+)@', furl)
@@ -307,6 +310,11 @@ class NativeStorageServer:
 
     def get_rref(self):
         return self.rref
+
+    def get_storage_URL(self):
+        if "storage-URL" in ann_d:
+            return str(ann_d["storage-URL"])
+        return None
 
     def _lost(self):
         log.msg(format="lost connection to %(name)s", name=self.get_name(),
