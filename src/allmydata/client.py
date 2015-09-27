@@ -169,7 +169,8 @@ class Client(node.Node, pollmixin.PollMixin):
         if webport:
             self.init_web(webport) # strports string
 
-        self.announce_storage_server()
+        if self.get_config("storage", "enabled", True, boolean=True):
+                self.announce_storage_server()
 
     def _sequencer(self):
         seqnum_s = self.get_config_from_file("announcement-seqnum")

@@ -548,7 +548,10 @@ class StorageServer(service.MultiService, Referenceable):
         return None
 
     def get_immutable_data(self, si, shnum, readv):
-        br = self.client_get_buckets(si, None)
-        b = br[shnum]
+        fname = os.path.join(
+            self.sharedir,
+            storage_index_to_dir(si),
+            str(shnum))
+        b = BucketReader(self, fname, si, shnum)
         # we rely upon remote_read() actually being synchronous
         return [b.remote_read(start, length) for (start, length) in readv]

@@ -24,7 +24,7 @@ class Storage(resource.Resource):
         si = base32.a2b(pieces[1])
         assert pieces[2] == "share"
         shnum = int(pieces[3])
-        r = req.getHeader("range")# or "bytes=1-10"
+        r = req.getHeader("range") or "bytes=1-99999999999999"
         parsed = parse_range_header(r)
         readv = [(first, last-first+1) for (first,last) in parsed]
         datav = self.storage.get_immutable_data(si, shnum, readv)
