@@ -327,7 +327,7 @@ class Client(node.Node, pollmixin.PollMixin):
             except KeyError:
                 webish = None
             if webish:
-                ann_d["storage-URL"] = webish.getURL()+"storage"
+                ann["storage-URL"] = webish.getURL()+"storage"
             self.introducer_client.publish("storage", ann, self._node_key)
         d.addCallback(_publish)
         d.addErrback(log.err, facility="tahoe.init",
